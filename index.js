@@ -67,7 +67,7 @@ const contratosReducer = (listaDeContratosAtual = [], acao) => {
         return [...listaDeContratosAtual, acao.payload]
     }
     if ( acao.type === "CANCELAR_CONTRATO") {
-        return listaDeContratosAtual.filter((contrato) => {contrato.nome !== acao.payload.nome})
+        return listaDeContratosAtual.filter(contrato => contrato.nome !== acao.payload.nome)
     }
     return listaDeContratosAtual;
 }
@@ -83,4 +83,21 @@ const store = createStore(todosOsReducers)
 //criar contrato para o José
 const acaoContratoJose = criarContrato('José', 50)
 store.dispatch(acaoContratoJose)
-console.log(store.getState())
+const acaoContratoMaria = criarContrato('Maria', 50)
+store.dispatch(acaoContratoMaria)
+//console.log(store.getState())
+
+//pedido de cashback para a maria de 10
+const acaoCashbackMaria = solicitarCashBack('Maria', 10)
+store.dispatch(acaoCashbackMaria)
+console.log(store.getState());
+
+//pedido de cashback para o josé de 20
+const acaoCashBackJose = solicitarCashBack('José', 20)
+store.dispatch(acaoCashBackJose)
+console.log(store.getState());
+
+//cancelar o contrato da maria
+const acaoCancelarMaria = cancelarContrato('Maria')
+store.dispatch(acaoCancelarMaria)
+console.log(store.getState());
