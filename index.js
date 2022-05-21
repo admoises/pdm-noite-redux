@@ -1,3 +1,6 @@
+const Redux = require('redux')
+const {createStore, combineReducers} = Redux;
+
 //  arrow function
 // nome: criarContrato()
 // recebe nome e valor
@@ -53,7 +56,7 @@ const operaCaixaReducer = (caixa = 0, acao) => {
     else if (acao.type === "SOLICITAR_CASHBACK") {
         return caixa - acao.payload.valor;
     }
-    return valor;
+    return caixa;
 }
 
 //implementar reducer que lida com alista de contratos
@@ -68,3 +71,16 @@ const contratosReducer = (listaDeContratosAtual = [], acao) => {
     }
     return listaDeContratosAtual;
 }
+
+const todosOsReducers = combineReducers({
+    historicoDePedidosCashback: historicoDePedidosCashbackReducer,
+    caixa: operaCaixaReducer,
+    contratos: contratosReducer
+})
+
+const store = createStore(todosOsReducers)
+
+//criar contrato para o José
+const acaoContratoJose = criarContrato('José', 50)
+store.dispatch(acaoContratoJose)
+console.log(store.getState())
